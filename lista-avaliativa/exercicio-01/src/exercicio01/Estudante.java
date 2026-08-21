@@ -28,9 +28,9 @@ public class Estudante {
       System.out.println("Nota " + (i + 1) + ": ");
       this.notas[i] = scanner.nextDouble();
 
-      // impede que o usuario digite uma nota menor que 0
-      while (this.notas[i] < 0) {
-        System.out.println("A nota não pode ser menor que 0. Nota " + (i + 1) + ": ");
+      // impede que o usuario digite uma nota menor que 0 ou maior que 10
+      while (this.notas[i] < 0 || this.notas[i] > 10) {
+        System.out.println("A nota não pode ser menor que 0 ou maior que 10. Nota " + (i + 1) + ": ");
         this.notas[i] = scanner.nextDouble();
       }
     }
