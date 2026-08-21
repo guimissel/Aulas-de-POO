@@ -1,6 +1,5 @@
-package exercicio02;
+package gestaoestudantes;
 
-import exercicio01.Estudante;
 import java.util.ArrayList;
 
 public class GestorEstudantes {

@@ -1,7 +1,6 @@
-package exercicio01;
+package gestaoestudantes;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Estudante {
   private String nome;

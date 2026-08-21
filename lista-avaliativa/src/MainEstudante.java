@@ -1,5 +1,5 @@
-import exercicio01.Estudante;
-import exercicio02.GestorEstudantes;
+import gestaoestudantes.Estudante;
+import gestaoestudantes.GestorEstudantes;
 
 import java.util.ArrayList;
 
