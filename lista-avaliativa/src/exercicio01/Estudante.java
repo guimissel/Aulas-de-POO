@@ -1,6 +1,7 @@
 package exercicio01;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Estudante {
   private String nome;
@@ -44,6 +45,20 @@ public class Estudante {
     }
 
     return somaNotas / this.notas.length;
+  }
+
+  public double calculaMedia(double[] pesos) {
+    // media ponderada = soma das notas x pesos dividido por soma dos pesos
+
+    double somaNotas = 0;
+    double somaPesos = 0;
+
+    for (int i = 0; i < pesos.length; i++) {
+      somaNotas += this.notas[i] * pesos[i];
+      somaPesos += pesos[i];
+    }
+
+    return somaNotas / somaPesos;
   }
 
   public double menorNota() {

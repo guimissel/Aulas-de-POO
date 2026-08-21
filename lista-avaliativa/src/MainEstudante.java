@@ -19,6 +19,7 @@ public class MainEstudante {
       System.out.println(nota + "\n");
     }
     System.out.println("\nMédia: " + estudante.calculaMedia());
+    System.out.println("Média ponderada: " + estudante.calculaMedia(new double[]{1, 2, 3, 2, 2}));
     System.out.println("Menor nota: " + estudante.menorNota());
 
     Estudante estudante2 = new Estudante("Júlia");
