@@ -8,7 +8,8 @@ public class Main {
   public static void main(String[] args) {
     int numeroIngresso = 1;
     int opcaoDigitada = 0;
-
+    int lugar;
+    int tipoLocalidade;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -16,7 +17,7 @@ public class Main {
             1, "Vender Ingresso",
             2, "Bloquear lugares",
             3, "Ver se localidade está lotada",
-            4, "Ver assentos disponíveis na localidade"
+            4, "Ver total arrecadado"
     ));
 
     Map<Integer, String> localidades = new TreeMap<>(Map.of(
@@ -42,10 +43,10 @@ public class Main {
             // vender ingresso
             System.out.print("Tipo de localidade:\n");
             localidades.forEach((opcao, texto) -> {
-              System.out.println(opcao + " - " + texto);
+              System.out.println(opcao + " - " + texto + " (" + espetaculo.getPrecoIngresso(opcao) + ")");
             });
             System.out.print("\n> ");
-            int tipoLocalidade = scanner.hasNextInt() ? scanner.nextInt() : 1;
+            tipoLocalidade = scanner.hasNextInt() ? scanner.nextInt() : 1;
 
             if (!localidades.containsKey(tipoLocalidade)) throw new IllegalArgumentException("Erro: tipo de localidade não existe");
 
@@ -53,8 +54,6 @@ public class Main {
             espetaculo.assentosDisponiveis(tipoLocalidade);
 
             System.out.print("\n> ");
-
-            int lugar;
 
             if (scanner.hasNextInt()) {
               lugar = scanner.nextInt();
@@ -65,13 +64,59 @@ public class Main {
             if (!espetaculo.lugarDisponivel(tipoLocalidade, lugar)) throw new IllegalArgumentException("Erro: lugar não disponível");
 
             espetaculo.venderIngresso(tipoLocalidade, lugar, numeroIngresso);
-            System.out.println("Ingresso " + numeroIngresso + " no lugar " + lugar + " vendido!");
+            System.out.println("Ingresso " + numeroIngresso + " no lugar " + lugar + " vendido!\n");
             numeroIngresso++;
 
             break;
           case 2:
             // bloquear lugares
+            System.out.print("Tipo de localidade:\n");
+            localidades.forEach((opcao, texto) -> {
+              System.out.println(opcao + " - " + texto + " (" + espetaculo.getPrecoIngresso(opcao) + ")");
+            });
+            System.out.print("\n> ");
+            tipoLocalidade = scanner.hasNextInt() ? scanner.nextInt() : 1;
 
+            if (!localidades.containsKey(tipoLocalidade)) throw new IllegalArgumentException("Erro: tipo de localidade não existe");
+
+            System.out.println("Assentos disponíveis:\n");
+            espetaculo.assentosDisponiveis(tipoLocalidade);
+
+            System.out.print("\n> ");
+
+            if (scanner.hasNextInt()) {
+              lugar = scanner.nextInt();
+            } else {
+              throw new IllegalArgumentException("Erro: lugar não existe");
+            }
+
+            if (!espetaculo.lugarDisponivel(tipoLocalidade, lugar)) throw new IllegalArgumentException("Erro: lugar não disponível");
+
+            espetaculo.bloquearLugar(tipoLocalidade, lugar);
+            System.out.println("Lugar " + lugar + " bloqueado!\n");
+
+            break;
+          case 3:
+            // ver se localidade está lotada
+            System.out.print("Tipo de localidade:\n");
+            localidades.forEach((opcao, texto) -> {
+              System.out.println(opcao + " - " + texto + " (" + espetaculo.getPrecoIngresso(opcao) + ")");
+            });
+            System.out.print("\n> ");
+            tipoLocalidade = scanner.hasNextInt() ? scanner.nextInt() : 1;
+
+            if (!localidades.containsKey(tipoLocalidade)) throw new IllegalArgumentException("Erro: tipo de localidade não existe");
+
+            if (espetaculo.isLotada(tipoLocalidade)) {
+              System.out.println(localidades.get(tipoLocalidade) + " lotada");
+            } else {
+              System.out.println(localidades.get(tipoLocalidade) + " possui lugares disponíveis");
+            }
+
+            break;
+          case 4:
+            // ver total arrecadado
+            System.out.println("Total arrecadado: R$" + espetaculo.getTotalArrecadado());
         }
       }
     } while (opcoes.containsKey(opcaoDigitada));

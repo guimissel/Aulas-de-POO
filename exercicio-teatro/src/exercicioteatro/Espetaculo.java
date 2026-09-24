@@ -42,8 +42,16 @@ public class Espetaculo {
     return this.totalArrecadado;
   }
 
-  public double getPrecoIngressoPlateiaBaixa() {
-    return this.precoIngressoPlateiaBaixa;
+  public double getPrecoIngresso(int  tipoLocalidade) {
+    double porcentagem = 1;
+
+    if (tipoLocalidade == 2) {
+      porcentagem = 0.75;
+    } else if (tipoLocalidade == 3) {
+      porcentagem = 0.55;
+    }
+
+    return this.precoIngressoPlateiaBaixa * porcentagem;
   }
 
   public int getUltimoIngresso() {
@@ -94,21 +102,20 @@ public class Espetaculo {
     if (tipoLocalidade == 1) {
       if (lugar < this.plateiaBaixa.length - 1 && this.plateiaBaixa[lugar] == 0) {
         this.plateiaBaixa[lugar] = numeroIngresso;
-        this.totalArrecadado += this.precoIngressoPlateiaBaixa;
       }
     } else if (tipoLocalidade == 2) {
       if (lugar < this.plateiaAlta.length - 1 && this.plateiaAlta[lugar] == 0) {
         this.plateiaAlta[lugar] = numeroIngresso;
-        this.totalArrecadado += this.precoIngressoPlateiaBaixa * 0.75;
       }
     } else if (tipoLocalidade == 3) {
       if (lugar < this.mezanino.length - 1 && this.mezanino[lugar] == 0) {
         this.mezanino[lugar] = numeroIngresso;
-        this.totalArrecadado += this.precoIngressoPlateiaBaixa * 0.55;
       }
     } else {
       throw new IllegalArgumentException("Erro: localidade não existe");
     }
+
+    this.totalArrecadado += this.getPrecoIngresso(tipoLocalidade);
   }
 
   public void assentosDisponiveis(int tipoLocalidade) {
