@@ -1,6 +1,7 @@
 import exercicioteatro.Espetaculo;
 
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Scanner;
 
 public class Main {
@@ -8,14 +9,21 @@ public class Main {
     int numeroIngresso = 1;
     int opcaoDigitada = 0;
 
+
     Scanner scanner = new Scanner(System.in);
 
-    Map<Integer, String> opcoes = Map.of(
+    Map<Integer, String> opcoes = new TreeMap<>(Map.of(
             1, "Vender Ingresso",
             2, "Bloquear lugares",
             3, "Ver se localidade está lotada",
             4, "Ver assentos disponíveis na localidade"
-    );
+    ));
+
+    Map<Integer, String> localidades = new TreeMap<>(Map.of(
+            1, "Plateia Baixa",
+            2, "Plateia Alta",
+            3, "Mezanino"
+    ));
 
     Espetaculo espetaculo = new Espetaculo("Teste", 120.0, numeroIngresso);
 
@@ -24,14 +32,46 @@ public class Main {
       opcoes.forEach((opcao, texto) -> {
         System.out.println(opcao + " - " + texto);
       });
-      System.out.println("\n> ");
+      System.out.print("\n> ");
 
       opcaoDigitada = scanner.hasNextInt() ? scanner.nextInt() : -1;
 
       if (opcoes.containsKey(opcaoDigitada)) {
         switch (opcaoDigitada) {
           case 1:
-            // todo: adicionar as opções do menu
+            // vender ingresso
+            System.out.print("Tipo de localidade:\n");
+            localidades.forEach((opcao, texto) -> {
+              System.out.println(opcao + " - " + texto);
+            });
+            System.out.print("\n> ");
+            int tipoLocalidade = scanner.hasNextInt() ? scanner.nextInt() : 1;
+
+            if (!localidades.containsKey(tipoLocalidade)) throw new IllegalArgumentException("Erro: tipo de localidade não existe");
+
+            System.out.println("Assentos disponíveis:\n");
+            espetaculo.assentosDisponiveis(tipoLocalidade);
+
+            System.out.print("\n> ");
+
+            int lugar;
+
+            if (scanner.hasNextInt()) {
+              lugar = scanner.nextInt();
+            } else {
+              throw new IllegalArgumentException("Erro: lugar não existe");
+            }
+
+            if (!espetaculo.lugarDisponivel(tipoLocalidade, lugar)) throw new IllegalArgumentException("Erro: lugar não disponível");
+
+            espetaculo.venderIngresso(tipoLocalidade, lugar, numeroIngresso);
+            System.out.println("Ingresso " + numeroIngresso + " no lugar " + lugar + " vendido!");
+            numeroIngresso++;
+
+            break;
+          case 2:
+            // bloquear lugares
+
         }
       }
     } while (opcoes.containsKey(opcaoDigitada));

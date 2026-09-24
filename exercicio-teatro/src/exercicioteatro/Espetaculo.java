@@ -114,16 +114,28 @@ public class Espetaculo {
   public void assentosDisponiveis(int tipoLocalidade) {
     if (tipoLocalidade == 1) {
       for (int i = 0; i < this.plateiaBaixa.length; i++) {
-        System.out.print(i + " ");
+        if (this.plateiaBaixa[i] == 0) System.out.print(i + " ");
       }
     } else if (tipoLocalidade == 2) {
       for (int i = 0; i < this.plateiaAlta.length; i++) {
-        System.out.print(i + " ");
+        if (this.plateiaAlta[i] == 0) System.out.print(i + " ");
       }
     } else if (tipoLocalidade == 3) {
       for (int i = 0; i < this.mezanino.length; i++) {
-        System.out.print(i + " ");
+        if (this.mezanino[i] == 0) System.out.print(i + " ");
       }
+    } else {
+      throw new IllegalArgumentException("Erro: localidade não existe");
+    }
+  }
+
+  public boolean lugarDisponivel(int tipoLocalidade, int lugar) {
+    if (tipoLocalidade == 1) {
+      return lugar >= 0 && lugar < this.plateiaBaixa.length && this.plateiaBaixa[lugar] == 0;
+    } else if (tipoLocalidade == 2) {
+      return lugar >= 0 && lugar < this.plateiaAlta.length && this.plateiaAlta[lugar] == 0;
+    } else if (tipoLocalidade == 3) {
+      return lugar >= 0 && lugar < this.mezanino.length && this.mezanino[lugar] == 0;
     } else {
       throw new IllegalArgumentException("Erro: localidade não existe");
     }
