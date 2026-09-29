@@ -40,5 +40,7 @@ public class Divisao {
     }
 
     if (divisaoDeuCerto) System.out.println("Resultado: " + resultado);
+
+    scanner.close();
   }
 }
