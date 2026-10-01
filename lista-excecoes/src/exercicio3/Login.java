@@ -24,11 +24,9 @@ public class Login {
 
   public boolean fazerLogin(String usuario, String senha) {
     try {
-      if (usuario.equals(this.usuario) && senha.equals(this.senha)) {
-        return true;
-      } else {
-        throw new CredenciaisErradasException("Erro! Usuário ou senha incorretos");
-      }
+      if (usuario.equals(this.usuario) && senha.equals(this.senha)) return true;
+
+      throw new CredenciaisErradasException("Erro! Usuário ou senha incorretos");
     } catch (CredenciaisErradasException e) {
       System.out.println(e.getMessage());
       return false;
