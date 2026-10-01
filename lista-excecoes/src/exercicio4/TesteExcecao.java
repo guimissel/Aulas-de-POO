@@ -19,6 +19,6 @@ public class TesteExcecao {
       throw me;
     }
 
-    System.out.println("fim"); // LETRA E) ERRO DE COMPILAÇÃO
+    // System.out.println("fim"); // LETRA E) ERRO DE COMPILAÇÃO
   }
 }
